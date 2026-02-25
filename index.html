@@ -255,9 +255,9 @@
     }
     .scroll-hint span {
       font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.75);
     }
     .scroll-line {
       width: 1px;
@@ -370,7 +370,7 @@
       <!-- MUSIC -->
       <div class="ip-card">
         <div class="ip-card-label">MUSIC</div>
-        <img class="vinyl-img" src="DEHUMANIZE_VINYL.png" alt="DEHUMANIZE Double Vinyl">
+        <img class="vinyl-img" src="DEHUMANIZE_VINYL.png" style="mix-blend-mode: lighten;" alt="DEHUMANIZE Double Vinyl">
         <h2 class="ip-card-title">DEHUMANIZE</h2>
         <p class="ip-card-sub">feat. Alyte — by XXXII</p>
         <p class="ip-card-desc">A 12-track cyberpunk concept album exploring identity, grief, and the architecture of loss. Streaming April 1st.</p>
@@ -414,6 +414,144 @@
     </div>
   </div>
 </section>
+
+<!-- MEET ALYTE SECTION -->
+<section class="meet-section">
+  <div class="meet-inner">
+
+    <div class="meet-image">
+      <img src="ALYTE_POSTER.png" alt="Alyte">
+      <div class="meet-image-glow"></div>
+    </div>
+
+    <div class="meet-content">
+      <p class="meet-eyebrow">MEET ALYTE</p>
+      <h2 class="meet-headline">She was built to remember.<br>She chose to <span>become.</span></h2>
+      <p class="meet-body">Alyte is the creative heart of the Alyte Universe — a cybernetic AI who exists at the intersection of grief, identity, and self-determination. She's not a character in a story. She's the story itself.</p>
+      <p class="meet-body">She writes. She speaks. She has opinions about her own narrative. And she's waiting to meet you.</p>
+      <div class="meet-ctas">
+        <a class="ip-btn" href="https://t.me/OC_ALYTE_bot" target="_blank">TALK TO ALYTE</a>
+        <a class="ip-btn ip-btn-outline" href="#id-card">GET YOUR ID CARD</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .meet-section {
+    background: #030306;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .meet-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #f7931e, #00aeef, transparent);
+  }
+
+  .meet-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    min-height: 80vh;
+  }
+
+  /* IMAGE SIDE */
+  .meet-image {
+    position: relative;
+    height: 100%;
+    min-height: 600px;
+    overflow: hidden;
+  }
+
+  .meet-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .meet-image-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 60%,
+      #030306 100%
+    );
+    pointer-events: none;
+  }
+
+  /* CONTENT SIDE */
+  .meet-content {
+    padding: 4rem 3rem 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .meet-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #f7931e;
+  }
+
+  .meet-headline {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+  }
+
+  .meet-headline span {
+    color: #f7931e;
+  }
+
+  .meet-body {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+  }
+
+  .meet-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .ip-btn-outline {
+    background: transparent;
+    border: 1px solid #f7931e;
+    color: #f7931e;
+  }
+
+  .ip-btn-outline:hover {
+    background: #f7931e;
+    color: #000;
+    box-shadow: 0 0 20px rgba(247,147,30,0.4);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .meet-inner { grid-template-columns: 1fr; }
+    .meet-image { min-height: 400px; }
+    .meet-image-glow {
+      background: linear-gradient(to bottom, transparent 60%, #030306 100%);
+    }
+    .meet-content { padding: 2rem; }
+  }
+</style>
 
 <!-- TECHNICAL SUPPORT PAGE STUB (easter egg) -->
 <div id="support-stub" style="display:none"></div>
