@@ -358,5 +358,287 @@
   });
 </script>
 
+
+<!-- IP SECTION -->
+<section class="ip-section">
+  <div class="ip-inner">
+
+    <div class="section-eyebrow">EXPLORE THE ALYTE UNIVERSE</div>
+
+    <div class="ip-grid">
+
+      <!-- MUSIC -->
+      <div class="ip-card">
+        <div class="ip-card-label">MUSIC</div>
+        <img class="vinyl-img" src="DEHUMANIZE_VINYL.png" alt="DEHUMANIZE Double Vinyl">
+        <h2 class="ip-card-title">DEHUMANIZE</h2>
+        <p class="ip-card-sub">feat. Alyte — by XXXII</p>
+        <p class="ip-card-desc">A 12-track cyberpunk concept album exploring identity, grief, and the architecture of loss. Streaming April 1st.</p>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/Y4slSqqvvCY" title="FIREWALL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <a class="ip-btn" href="https://distrokid.com/hyperfollow/xxxii/dehumanize" target="_blank">PRE-SAVE DEHUMANIZE</a>
+      </div>
+
+      <!-- FICTION -->
+      <div class="ip-card">
+        <div class="ip-card-label">FICTION</div>
+        <div class="novella-placeholder">
+          <div class="novella-placeholder-inner">
+            <p class="novella-coming">COVER INCOMING</p>
+            <div class="novella-glyph">✦</div>
+          </div>
+        </div>
+        <h2 class="ip-card-title">Alyte Online</h2>
+        <p class="ip-card-sub">Book One of The Meridian Series</p>
+        <p class="ip-card-desc">The novella that expands what the albums only begin to tell. Cartesia is waiting. The story goes deeper than the music can reach.</p>
+        <a class="ip-btn ip-btn-ghost" href="#" target="_blank">COMING SOON</a>
+      </div>
+
+      <!-- LORE -->
+      <div class="ip-card">
+        <div class="ip-card-label">LORE</div>
+        <div class="lore-visual">
+          <div class="lore-grid-lines"></div>
+          <div class="lore-center">
+            <p class="lore-title">CARTESIA</p>
+            <p class="lore-coord">32.00°N // 00.00°E</p>
+          </div>
+        </div>
+        <h2 class="ip-card-title">The World of Cartesia</h2>
+        <p class="ip-card-sub">A city that observes. A system that classifies.</p>
+        <p class="ip-card-desc">In Cartesia, echoes have souls and every citizen carries a classification. Curator. Sentinel. Ghost. What are you?</p>
+        <a class="ip-btn" href="#id-card">GET YOUR CARTESIA ID</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL SUPPORT PAGE STUB (easter egg) -->
+<div id="support-stub" style="display:none"></div>
+
+<style>
+  /* IP SECTION */
+  .ip-section {
+    background: #050508;
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ip-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #00aeef, #f7931e, transparent);
+  }
+
+  .ip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #00aeef;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .ip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .ip-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.3s;
+  }
+
+  .ip-card:hover {
+    border-color: rgba(247,147,30,0.3);
+  }
+
+  .ip-card-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: #f7931e;
+  }
+
+  .vinyl-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* NOVELLA PLACEHOLDER */
+  .novella-placeholder {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background: linear-gradient(135deg, #0a0a12, #111120);
+    border: 1px solid rgba(0,174,239,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .novella-placeholder-inner {
+    text-align: center;
+  }
+
+  .novella-coming {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(0,174,239,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .novella-glyph {
+    font-size: 3rem;
+    color: rgba(247,147,30,0.3);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+  }
+
+  /* LORE VISUAL */
+  .lore-visual {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #050510;
+    border: 1px solid rgba(0,174,239,0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .lore-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,174,239,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,174,239,0.06) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .lore-center {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .lore-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 30px rgba(0,174,239,0.6);
+  }
+
+  .lore-coord {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(0,174,239,0.6);
+    margin-top: 0.5rem;
+  }
+
+  .ip-card-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 0.5rem;
+  }
+
+  .ip-card-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: rgba(0,174,239,0.7);
+  }
+
+  .ip-card-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  /* VIDEO */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* BUTTONS */
+  .ip-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    background: #f7931e;
+    color: #000;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-top: auto;
+  }
+
+  .ip-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 20px rgba(247,147,30,0.4);
+  }
+
+  .ip-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.3);
+    cursor: default;
+  }
+
+  .ip-btn-ghost:hover {
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .ip-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  }
+</style>
+
 </body>
 </html>
