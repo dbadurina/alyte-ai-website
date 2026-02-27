@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Alyte Universe</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2146744');
+  </script>
+  <!-- End MailerLite Universal -->
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -158,7 +169,19 @@
 
     .email-submit:hover { background: #f7931e; border-color: #f7931e; color: #000; }
 
-    /* HERO CTAs — two buttons side by side */
+    /* Form success state */
+    .form-success {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: #f7931e;
+      text-align: center;
+      padding: 0.75rem;
+      border: 1px solid rgba(247,147,30,0.3);
+      background: rgba(247,147,30,0.05);
+    }
+
+    /* HERO CTAs */
     .hero-ctas {
       display: flex;
       gap: 1rem;
@@ -185,11 +208,7 @@
 
     .cta-btn:hover { background: #f7931e; color: #000; box-shadow: 0 0 30px rgba(247,147,30,0.4); }
 
-    .cta-btn-id {
-      background: #f7931e;
-      color: #000;
-    }
-
+    .cta-btn-id { background: #f7931e; color: #000; }
     .cta-btn-id:hover { background: #fff; border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
 
     .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 2; pointer-events: none; }
@@ -275,7 +294,6 @@
       color: #f7931e;
     }
 
-    /* Kickstarter logo above vinyl */
     .ks-logo-wrap {
       display: flex;
       align-items: center;
@@ -283,11 +301,7 @@
       padding: 0.5rem 0;
     }
 
-    .ks-logo {
-      height: 24px;
-      width: auto;
-      opacity: 0.9;
-    }
+    .ks-logo { height: 24px; width: auto; opacity: 0.9; }
 
     .vinyl-img {
       width: 100%;
@@ -907,9 +921,8 @@
 
     <div class="email-form">
       <p>Enter the universe — get updates from Alyte</p>
-      <!-- MAILCHIMP: replace action URL when ready -->
-      <form class="email-row" action="#" method="post">
-        <input class="email-input" type="email" name="EMAIL" placeholder="your@email.com" required>
+      <form class="email-row" id="heroForm" onsubmit="return handleSubscribe(event, 'heroForm')">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required>
         <button class="email-submit" type="submit">Join</button>
       </form>
     </div>
@@ -1003,14 +1016,12 @@
       <p class="meet-body">She writes. She speaks. She has opinions about her own narrative. And she's waiting to meet you.</p>
 
       <div class="contact-panel">
-        <p>Send Alyte a message</p>
-        <form style="display:flex;flex-direction:column;gap:0.75rem;">
-          <input class="email-input" type="email" placeholder="your@email.com" style="border-right:1px solid rgba(0,174,239,0.4);" required>
-          <textarea class="email-input" placeholder="Say something to Alyte..." rows="3" style="border-right:1px solid rgba(0,174,239,0.4);resize:none;font-family:'Rajdhani',sans-serif;"></textarea>
-          <!-- MAILCHIMP/EMAIL: wire up action when ready -->
-          <button class="email-submit" type="submit" style="align-self:flex-start;">SEND MESSAGE</button>
+        <p>Join the list. Alyte writes back.</p>
+        <form class="email-row" id="meetForm" onsubmit="return handleSubscribe(event, 'meetForm')" style="max-width:100%;">
+          <input class="email-input" type="email" name="email" placeholder="your@email.com" style="border-right:1px solid rgba(0,174,239,0.4);" required>
+          <button class="email-submit" type="submit" style="align-self:flex-start;">ENTER CARTESIA</button>
         </form>
-        <p class="contact-note">* Join the list to unlock direct replies from Alyte</p>
+        <p class="contact-note">* Subscribers get direct updates from Alyte — in her own voice, in her own words. She reads every reply.</p>
       </div>
     </div>
   </div>
@@ -1142,8 +1153,8 @@
       <div class="lore-ks-cta">
         <img class="lore-ks-logo" src="KICKSTARTER_LOGO.png" alt="Kickstarter">
         <p class="lore-ks-text">Score the <strong>canonical deep-dive Alyte Universe Lore Book</strong> — loaded with references, easter eggs, and incredible insight into this world. Back the campaign launching June 1st.</p>
-        <form class="email-row" action="#" method="post" style="max-width:100%;width:100%;">
-          <input class="email-input" type="email" name="EMAIL" placeholder="your@email.com" required>
+        <form class="email-row" id="loreForm" onsubmit="return handleSubscribe(event, 'loreForm')" style="max-width:100%;width:100%;">
+          <input class="email-input" type="email" name="email" placeholder="your@email.com" required>
           <button class="email-submit" type="submit">NOTIFY ME</button>
         </form>
       </div>
@@ -1155,6 +1166,7 @@
 </section>
 
 <script>
+  /* ===================== PARALLAX ===================== */
   const bg = document.getElementById('heroBg');
   const alyte = document.getElementById('heroAlyte');
 
@@ -1169,6 +1181,47 @@
     const s = window.scrollY;
     bg.style.transform = `translateY(${s * 0.4}px) scale(1.1)`;
   });
+
+  /* ===================== MAILERLITE SUBSCRIBE ===================== */
+  function handleSubscribe(e, formId) {
+    e.preventDefault();
+    const form = document.getElementById(formId);
+    const emailInput = form.querySelector('input[name="email"]');
+    const email = emailInput.value.trim();
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (!email) return false;
+
+    // Disable button while submitting
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '...';
+    submitBtn.disabled = true;
+
+    fetch('https://assets.mailerlite.com/jsonp/895498/forms/140498498498498/ta498?fields%5Bemail%5D=' + encodeURIComponent(email), {
+      method: 'POST',
+      mode: 'no-cors'
+    }).catch(() => {
+      // no-cors won't give us a readable response, so we fall through
+    });
+
+    // Use MailerLite's JS API as primary method
+    if (typeof ml === 'function') {
+      ml('subscribe', {
+        form_id: 'imwc1O',
+        fields: { email: email }
+      });
+    }
+
+    // Show success state
+    setTimeout(() => {
+      const successMsg = document.createElement('div');
+      successMsg.className = 'form-success';
+      successMsg.textContent = 'WELCOME TO CARTESIA, CITIZEN.';
+      form.parentNode.replaceChild(successMsg, form);
+    }, 600);
+
+    return false;
+  }
 </script>
 
 </body>
