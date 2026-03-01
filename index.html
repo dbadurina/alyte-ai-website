@@ -5,873 +5,262 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Alyte Universe</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- MailerLite webforms JS -->
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: #000; overflow-x: hidden; }
 
+    /* ===================== HIDDEN ML FORM (engine) ===================== */
+    #ml-hidden-form-wrap { display: none !important; }
+
     /* ===================== HERO ===================== */
     .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      min-height: 600px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
+      position: relative; width: 100%; height: 100vh; min-height: 600px;
+      overflow: hidden; display: flex; align-items: center;
     }
-
     .hero-bg {
-      position: absolute;
-      inset: -10%;
+      position: absolute; inset: -10%;
       background: url('ALYTE_HEROSHOT_BG.png') center center / cover no-repeat;
-      will-change: transform;
-      z-index: 1;
+      will-change: transform; z-index: 1;
     }
-
     .hero-overlay {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.82) 100%);
       z-index: 2;
     }
-
     .hero-alyte {
-      position: absolute;
-      bottom: 0; left: 0;
-      height: 100%;
-      max-height: 100vh;
-      width: auto;
-      object-fit: contain;
-      object-position: bottom left;
-      z-index: 3;
-      filter: drop-shadow(0 0 40px rgba(247,147,30,0.18));
+      position: absolute; bottom: 0; left: 0;
+      height: 100%; max-height: 100vh; width: auto;
+      object-fit: contain; object-position: bottom left;
+      z-index: 3; filter: drop-shadow(0 0 40px rgba(247,147,30,0.18));
     }
-
     .hero-content {
-      position: relative;
-      z-index: 4;
-      margin-left: auto;
-      margin-right: 6vw;
-      max-width: 560px;
-      padding: 2rem;
+      position: relative; z-index: 4;
+      margin-left: auto; margin-right: 6vw;
+      max-width: 560px; padding: 2rem;
     }
-
     .eyebrow {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 0.25em;
-      color: #00aeef;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.2s;
+      font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.25em; color: #00aeef; text-transform: uppercase;
+      margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
     }
-
     .headline {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      font-weight: 900;
-      line-height: 1.1;
-      color: #ffffff;
-      text-shadow: 0 0 40px rgba(247,147,30,0.3);
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.4s;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 900; line-height: 1.1;
+      color: #ffffff; text-shadow: 0 0 40px rgba(247,147,30,0.3);
+      margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
     }
-
     .headline span { color: #f7931e; }
-
     .subheadline {
       font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
-      font-weight: 300;
-      color: rgba(255,255,255,0.75);
-      letter-spacing: 0.08em;
-      line-height: 1.6;
-      margin-bottom: 0.6rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.6s;
+      font-size: clamp(1rem, 1.8vw, 1.25rem); font-weight: 300;
+      color: rgba(255,255,255,0.75); letter-spacing: 0.08em; line-height: 1.6;
+      margin-bottom: 0.6rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s;
     }
-
     .release-tag {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: #00aeef;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.7s;
+      font-family: 'Orbitron', monospace; font-size: 0.65rem;
+      letter-spacing: 0.2em; color: #00aeef;
+      margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s;
     }
-
     .email-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.85s;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.85s;
     }
-
     .email-form p {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
+      font-family: 'Rajdhani', sans-serif; font-size: 0.8rem;
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.5); text-transform: uppercase;
     }
-
     .email-row { display: flex; gap: 0; max-width: 420px; }
-
     .email-input {
-      flex: 1;
-      padding: 0.75rem 1rem;
+      flex: 1; padding: 0.75rem 1rem;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(0,174,239,0.4);
-      border-right: none;
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-      outline: none;
+      border: 1px solid rgba(0,174,239,0.4); border-right: none;
+      color: #fff; font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem; letter-spacing: 0.05em; outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
-
     .email-input::placeholder { color: rgba(255,255,255,0.3); }
     .email-input:focus { border-color: #00aeef; background: rgba(0,174,239,0.08); }
-
     .email-submit {
-      padding: 0.75rem 1.25rem;
-      background: #00aeef;
-      border: 1px solid #00aeef;
-      color: #000;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
+      padding: 0.75rem 1.25rem; background: #00aeef;
+      border: 1px solid #00aeef; color: #000;
+      font-family: 'Orbitron', monospace; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.15em; cursor: pointer; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s; white-space: nowrap;
     }
-
     .email-submit:hover { background: #f7931e; border-color: #f7931e; color: #000; }
-    .email-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* Form success state */
-    .form-success {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: #f7931e;
-      padding: 0.75rem;
-      border: 1px solid rgba(247,147,30,0.3);
-      background: rgba(247,147,30,0.05);
-    }
-
-    .form-error {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      color: #ff4444;
-      margin-top: 0.5rem;
-    }
-
-    /* HERO CTAs */
     .hero-ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1s;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease forwards 1s;
     }
-
     .cta-btn {
-      display: inline-block;
-      padding: 0.9rem 2.2rem;
-      border: 1px solid #f7931e;
-      color: #f7931e;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      background: transparent;
+      display: inline-block; padding: 0.9rem 2.2rem;
+      border: 1px solid #f7931e; color: #f7931e;
+      font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none;
+      cursor: pointer; background: transparent;
       transition: background 0.25s, color 0.25s, box-shadow 0.25s;
     }
-
     .cta-btn:hover { background: #f7931e; color: #000; box-shadow: 0 0 30px rgba(247,147,30,0.4); }
-
     .cta-btn-id { background: #f7931e; color: #000; }
     .cta-btn-id:hover { background: #fff; border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
-
     .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 2; pointer-events: none; }
     .glow-amber { width: 400px; height: 400px; background: rgba(247,147,30,0.12); bottom: -100px; left: 15%; }
     .glow-blue { width: 300px; height: 300px; background: rgba(0,174,239,0.1); top: 20%; right: 10%; }
-
     .scroll-hint {
-      position: absolute;
-      bottom: 2rem; left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 1.5s;
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0; animation: fadeIn 1s ease forwards 1.5s;
     }
+    .scroll-hint span { font-family: 'Orbitron', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.75); }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(0,174,239,0.6), transparent); animation: scrollPulse 2s ease-in-out infinite; }
 
-    .scroll-hint span {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      color: rgba(255,255,255,0.75);
-    }
-
-    .scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, rgba(0,174,239,0.6), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+    /* ===================== SUCCESS STATE ===================== */
+    .ml-success-msg {
+      display: none;
+      font-family: 'Orbitron', monospace; font-size: 0.75rem;
+      letter-spacing: 0.2em; color: #f7931e;
+      padding: 1rem; border: 1px solid rgba(247,147,30,0.3);
+      background: rgba(247,147,30,0.05);
+      max-width: 420px;
     }
 
     /* ===================== IP SECTION ===================== */
-    .ip-section {
-      background: #050508;
-      padding: 6rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .ip-section { background: #050508; padding: 6rem 2rem; position: relative; overflow: hidden; }
     .ip-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(to right, transparent, #00aeef, #f7931e, transparent);
     }
-
     .ip-inner { max-width: 1200px; margin: 0 auto; }
-
-    .section-eyebrow {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      color: #00aeef;
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .ip-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      align-items: start;
-    }
-
+    .section-eyebrow { font-family: 'Orbitron', monospace; font-size: 0.65rem; letter-spacing: 0.3em; color: #00aeef; text-align: center; margin-bottom: 3rem; }
+    .ip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: start; }
     .ip-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem;
       transition: border-color 0.3s;
     }
-
     .ip-card:hover { border-color: rgba(247,147,30,0.3); }
-
-    .ip-card-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: #f7931e;
-    }
-
-    .ks-logo-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem 0;
-    }
-
+    .ip-card-label { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: #f7931e; }
+    .ks-logo-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; }
     .ks-logo { height: 24px; width: auto; opacity: 0.9; }
-
-    .vinyl-img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      mix-blend-mode: lighten;
-    }
-
-    /* ID CARD PANEL */
-    .id-card-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 1rem 0;
-      text-align: center;
-      flex: 1;
-    }
-
+    .vinyl-img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: lighten; }
+    .id-card-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 1rem 0; text-align: center; flex: 1; }
     .id-card-preview {
-      width: 100%;
-      aspect-ratio: 3/4;
+      width: 100%; aspect-ratio: 3/4;
       background: linear-gradient(135deg, #0a0a18, #0d1020);
-      border: 1px solid rgba(0,174,239,0.3);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
+      border: 1px solid rgba(0,174,239,0.3); position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem;
     }
-
     .id-card-preview::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,174,239,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,174,239,0.05) 1px, transparent 1px);
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,174,239,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,174,239,0.05) 1px, transparent 1px);
       background-size: 20px 20px;
     }
-
-    .id-card-icon {
-      font-family: 'Orbitron', monospace;
-      font-size: 2.5rem;
-      color: rgba(0,174,239,0.4);
-      position: relative;
-      z-index: 1;
-    }
-
-    .id-card-preview-text {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: rgba(0,174,239,0.5);
-      position: relative;
-      z-index: 1;
-    }
-
-    .id-locked-features {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      width: 100%;
-    }
-
-    .id-feature {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    .id-card-icon { font-family: 'Orbitron', monospace; font-size: 2.5rem; color: rgba(0,174,239,0.4); position: relative; z-index: 1; }
+    .id-card-preview-text { font-family: 'Orbitron', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: rgba(0,174,239,0.5); position: relative; z-index: 1; }
+    .id-locked-features { display: flex; flex-direction: column; gap: 0.4rem; width: 100%; }
+    .id-feature { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
     .id-feature.locked { color: rgba(247,147,30,0.4); }
     .id-feature::before { content: '✓'; color: rgba(0,174,239,0.5); font-size: 0.7rem; }
     .id-feature.locked::before { content: '🔒'; font-size: 0.65rem; }
-
-    /* NOVELLA PLACEHOLDER */
-    .novella-placeholder {
-      width: 100%;
-      aspect-ratio: 2/3;
-      background: linear-gradient(135deg, #0a0a12, #111120);
-      border: 1px solid rgba(0,174,239,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .novella-placeholder { width: 100%; aspect-ratio: 2/3; background: linear-gradient(135deg, #0a0a12, #111120); border: 1px solid rgba(0,174,239,0.2); display: flex; align-items: center; justify-content: center; }
     .novella-placeholder-inner { text-align: center; }
-
-    .novella-coming {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: rgba(0,174,239,0.5);
-      margin-bottom: 1rem;
-    }
-
-    .novella-glyph {
-      font-size: 3rem;
-      color: rgba(247,147,30,0.3);
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    .ip-card-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 0.5rem;
-    }
-
-    .ip-card-sub {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      color: rgba(0,174,239,0.7);
-    }
-
-    .ip-card-desc {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.6;
-      flex: 1;
-    }
-
+    .novella-coming { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(0,174,239,0.5); margin-bottom: 1rem; }
+    .novella-glyph { font-size: 3rem; color: rgba(247,147,30,0.3); animation: pulse 3s ease-in-out infinite; }
+    .ip-card-title { font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 0.5rem; }
+    .ip-card-sub { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(0,174,239,0.7); }
+    .ip-card-desc { font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.6; flex: 1; }
     .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; }
     .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
-
     .ip-btn {
-      display: inline-block;
-      padding: 0.7rem 1.2rem;
-      background: #f7931e;
-      color: #000;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-decoration: none;
-      text-align: center;
-      transition: background 0.2s, box-shadow 0.2s;
-      margin-top: auto;
+      display: inline-block; padding: 0.7rem 1.2rem; background: #f7931e; color: #000;
+      font-family: 'Orbitron', monospace; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.15em; text-decoration: none; text-align: center;
+      transition: background 0.2s, box-shadow 0.2s; margin-top: auto;
     }
-
     .ip-btn:hover { background: #fff; box-shadow: 0 0 20px rgba(247,147,30,0.4); }
-
-    .ip-btn-outline {
-      background: transparent;
-      border: 1px solid #f7931e;
-      color: #f7931e;
-    }
-
+    .ip-btn-outline { background: transparent; border: 1px solid #f7931e; color: #f7931e; }
     .ip-btn-outline:hover { background: #f7931e; color: #000; box-shadow: 0 0 20px rgba(247,147,30,0.4); }
-
-    .ip-btn-ghost {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.3);
-      cursor: default;
-    }
-
+    .ip-btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.3); cursor: default; }
     .ip-btn-ghost:hover { background: transparent; box-shadow: none; color: rgba(255,255,255,0.3); }
 
     /* ===================== MEET ALYTE ===================== */
-    .meet-section {
-      background: #030306;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .meet-section { background: #030306; position: relative; overflow: hidden; }
     .meet-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(to right, transparent, #f7931e, #00aeef, transparent);
     }
-
-    .meet-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      min-height: 80vh;
-    }
-
+    .meet-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 80vh; }
     .meet-image { position: relative; height: 100%; min-height: 600px; overflow: hidden; }
-
-    .meet-image img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .meet-image-glow {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, transparent 60%, #030306 100%);
-      pointer-events: none;
-    }
-
-    .meet-content {
-      padding: 4rem 3rem 4rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .meet-eyebrow {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      color: #f7931e;
-    }
-
-    .meet-headline {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.25;
-    }
-
+    .meet-image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .meet-image-glow { position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, #030306 100%); pointer-events: none; }
+    .meet-content { padding: 4rem 3rem 4rem 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .meet-eyebrow { font-family: 'Orbitron', monospace; font-size: 0.65rem; letter-spacing: 0.3em; color: #f7931e; }
+    .meet-headline { font-family: 'Orbitron', monospace; font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 900; color: #fff; line-height: 1.25; }
     .meet-headline span { color: #f7931e; }
-
-    .meet-body {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.7;
-    }
-
+    .meet-body { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
     .meet-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
-
-    /* CONTACT PANEL */
-    .contact-panel {
-      background: rgba(0,174,239,0.05);
-      border: 1px solid rgba(0,174,239,0.2);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .contact-panel .panel-heading {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-    }
-
-    .contact-note {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      color: rgba(0,174,239,0.6);
-      font-style: italic;
-    }
+    .meet-join-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .meet-join-form p { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .meet-join-note { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; color: rgba(0,174,239,0.6); font-style: italic; }
 
     /* ===================== LORE SECTION ===================== */
     .lore-section { background: #020205; position: relative; }
-
-    .lore-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #00aeef, transparent);
-    }
-
-    .lore-eyebrow {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      color: #00aeef;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
+    .lore-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, #00aeef, transparent); }
+    .lore-eyebrow { font-family: 'Orbitron', monospace; font-size: 0.65rem; letter-spacing: 0.3em; color: #00aeef; text-align: center; margin-bottom: 1rem; }
     .lore-world { padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
-
-    .lore-world::before {
-      content: 'CARTESIA';
-      position: absolute;
-      font-family: 'Orbitron', monospace;
-      font-size: 18vw;
-      font-weight: 900;
-      color: rgba(255,255,255,0.015);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      pointer-events: none;
-      letter-spacing: 0.1em;
-    }
-
+    .lore-world::before { content: 'CARTESIA'; position: absolute; font-family: 'Orbitron', monospace; font-size: 18vw; font-weight: 900; color: rgba(255,255,255,0.015); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; letter-spacing: 0.1em; }
     .lore-world-inner { max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
-
-    .lore-world-title {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 0.2em;
-      text-shadow: 0 0 60px rgba(0,174,239,0.3);
-      margin-bottom: 0.5rem;
-    }
-
-    .lore-world-subtitle {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: #f7931e;
-      margin-bottom: 2rem;
-    }
-
-    .lore-world-body {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-      text-align: left;
-    }
-
-    /* MERIDIAN BAR */
-    .meridian-bar {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 6rem 2rem;
-      background: rgba(247,147,30,0.04);
-      border-top: 2px solid rgba(247,147,30,0.5);
-      border-bottom: 2px solid rgba(247,147,30,0.5);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .meridian-bar::before {
-      content: 'MERIDIAN';
-      position: absolute;
-      font-family: 'Orbitron', monospace;
-      font-size: 20vw;
-      font-weight: 900;
-      color: rgba(247,147,30,0.03);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      pointer-events: none;
-      letter-spacing: 0.1em;
-    }
-
-    .meridian-line {
-      flex: 1; height: 2px;
-      background: linear-gradient(to right, transparent, rgba(247,147,30,0.6));
-    }
-
+    .lore-world-title { font-family: 'Orbitron', monospace; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; color: #fff; letter-spacing: 0.2em; text-shadow: 0 0 60px rgba(0,174,239,0.3); margin-bottom: 0.5rem; }
+    .lore-world-subtitle { font-family: 'Orbitron', monospace; font-size: 0.8rem; letter-spacing: 0.2em; color: #f7931e; margin-bottom: 2rem; }
+    .lore-world-body { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 1rem; text-align: left; }
+    .meridian-bar { display: flex; align-items: center; gap: 2rem; padding: 6rem 2rem; background: rgba(247,147,30,0.04); border-top: 2px solid rgba(247,147,30,0.5); border-bottom: 2px solid rgba(247,147,30,0.5); position: relative; overflow: hidden; }
+    .meridian-bar::before { content: 'MERIDIAN'; position: absolute; font-family: 'Orbitron', monospace; font-size: 20vw; font-weight: 900; color: rgba(247,147,30,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; letter-spacing: 0.1em; }
+    .meridian-line { flex: 1; height: 2px; background: linear-gradient(to right, transparent, rgba(247,147,30,0.6)); }
     .meridian-line:last-child { background: linear-gradient(to left, transparent, rgba(247,147,30,0.6)); }
-
     .meridian-text-block { max-width: 700px; text-align: center; position: relative; z-index: 1; }
-
-    .meridian-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.4em;
-      color: #f7931e;
-      margin-bottom: 1.5rem;
-    }
-
-    .meridian-body {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      color: rgba(255,255,255,0.75);
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.03em;
-    }
-
-    .meridian-warning {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-      letter-spacing: 0.2em;
-      color: #f7931e;
-      font-weight: 700;
-      text-shadow: 0 0 30px rgba(247,147,30,0.5);
-    }
-
-    /* CLASSIFICATIONS */
+    .meridian-label { font-family: 'Orbitron', monospace; font-size: 0.75rem; letter-spacing: 0.4em; color: #f7931e; margin-bottom: 1.5rem; }
+    .meridian-body { font-family: 'Rajdhani', sans-serif; font-size: clamp(1.2rem, 2vw, 1.6rem); color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 1.5rem; letter-spacing: 0.03em; }
+    .meridian-warning { font-family: 'Orbitron', monospace; font-size: clamp(0.9rem, 1.5vw, 1.2rem); letter-spacing: 0.2em; color: #f7931e; font-weight: 700; text-shadow: 0 0 30px rgba(247,147,30,0.5); }
     .class-section { padding: 5rem 2rem; }
     .class-inner { max-width: 1000px; margin: 0 auto; }
-
-    .class-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.2rem;
-      color: #fff;
-      text-align: center;
-      margin-bottom: 3rem;
-      letter-spacing: 0.1em;
-    }
-
+    .class-title { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: #fff; text-align: center; margin-bottom: 3rem; letter-spacing: 0.1em; }
     .class-grid { display: flex; flex-direction: column; gap: 0; }
-
-    .class-card {
-      padding: 2rem;
-      border: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
+    .class-card { padding: 2rem; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 1.5rem; }
     .class-above { border-color: rgba(0,174,239,0.2); background: rgba(0,174,239,0.03); }
     .class-below { border-color: rgba(247,147,30,0.2); background: rgba(247,147,30,0.03); }
-
-    .class-tier {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      color: #00aeef;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0,174,239,0.2);
-    }
-
+    .class-tier { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: #00aeef; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,174,239,0.2); }
     .class-tier-below { color: #f7931e; border-bottom-color: rgba(247,147,30,0.2); }
     .class-item { display: flex; flex-direction: column; gap: 0.4rem; }
-
-    .class-name {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: #fff;
-    }
-
-    .class-desc {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.6;
-    }
-
+    .class-name { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; color: #fff; }
+    .class-desc { font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
     .class-divider { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 2rem; }
     .class-divider-line { flex: 1; height: 1px; background: rgba(247,147,30,0.3); }
-
-    .class-divider-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: #f7931e;
-      white-space: nowrap;
-    }
-
-    /* CAST */
+    .class-divider-label { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: #f7931e; white-space: nowrap; }
     .cast-section { padding: 5rem 2rem; background: rgba(0,0,0,0.3); }
     .cast-inner { max-width: 1200px; margin: 0 auto; }
-
-    .cast-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
+    .cast-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 2rem; }
     .cast-card { display: flex; flex-direction: column; gap: 0.5rem; }
-
-    .cast-img-wrap {
-      position: relative;
-      aspect-ratio: 2/3;
-      overflow: hidden;
-      background: #0a0a12;
-    }
-
-    .cast-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    .cast-img-fade {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 40%;
-      background: linear-gradient(to top, #020205, transparent);
-    }
-
-    .cast-img-redacted {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 12px);
-    }
-
-    .cast-redacted-text {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.15);
-      text-align: center;
-      line-height: 1.8;
-    }
-
-    .cast-name {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: #fff;
-    }
-
-    .cast-role {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.85rem;
-      color: rgba(0,174,239,0.7);
-      letter-spacing: 0.05em;
-    }
-
+    .cast-img-wrap { position: relative; aspect-ratio: 2/3; overflow: hidden; background: #0a0a12; }
+    .cast-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .cast-img-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to top, #020205, transparent); }
+    .cast-img-redacted { display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.06); background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 12px); }
+    .cast-redacted-text { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.15); text-align: center; line-height: 1.8; }
+    .cast-name { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: #fff; }
+    .cast-role { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; color: rgba(0,174,239,0.7); letter-spacing: 0.05em; }
     .cast-classified .cast-role { color: rgba(247,147,30,0.5); }
-
-    /* DEEP LORE */
     .deep-lore { padding: 5rem 2rem 3rem; position: relative; border-top: 1px solid rgba(255,255,255,0.05); }
-
     .deep-lore-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-
-    .deep-lore-body {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-    }
-
-    /* KICKSTARTER CTA IN DEEP LORE */
-    .lore-ks-cta {
-      margin: 2.5rem auto;
-      max-width: 600px;
-      background: rgba(247,147,30,0.05);
-      border: 1px solid rgba(247,147,30,0.25);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
+    .deep-lore-body { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 1.25rem; }
+    .lore-ks-cta { margin: 2.5rem auto; max-width: 600px; background: rgba(247,147,30,0.05); border: 1px solid rgba(247,147,30,0.25); padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
     .lore-ks-logo { height: 20px; width: auto; opacity: 0.85; }
-
-    .lore-ks-text {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.6;
-      text-align: center;
-    }
-
+    .lore-ks-text { font-family: 'Rajdhani', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.6; text-align: center; }
     .lore-ks-text strong { color: #f7931e; }
-
-    .deep-lore-closer {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: #f7931e;
-      margin-top: 2rem;
-      padding-bottom: 4rem;
-      text-shadow: 0 0 20px rgba(247,147,30,0.3);
-    }
+    .deep-lore-closer { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: #f7931e; margin-top: 2rem; padding-bottom: 4rem; text-shadow: 0 0 20px rgba(247,147,30,0.3); }
 
     /* ===================== ANIMATIONS ===================== */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -891,7 +280,6 @@
       .meridian-line { width: 100%; height: 1px; }
       .hero-ctas { flex-direction: column; }
     }
-
     @media (max-width: 600px) {
       .cast-grid { grid-template-columns: repeat(2, 1fr); }
       .email-row { flex-direction: column; }
@@ -900,6 +288,40 @@
   </style>
 </head>
 <body>
+
+<!-- ===================== HIDDEN MAILERLITE ENGINE ===================== -->
+<!-- This form is invisible. Our pretty forms talk to this one. -->
+<div id="ml-hidden-form-wrap">
+  <div id="mlb2-37769926" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-37769926">
+    <div class="ml-form-align-center">
+      <div class="ml-form-embedWrapper embedForm">
+        <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+          <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2146744/forms/180587783403865708/subscribe" data-code="" method="post" target="_blank">
+            <div class="ml-form-formContent">
+              <div class="ml-form-fieldRow ml-last-item">
+                <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                  <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email" id="ml-hidden-email">
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="ml-submit" value="1">
+            <div class="ml-form-embedSubmit">
+              <button type="submit" class="primary" id="ml-hidden-submit">Subscribe</button>
+              <button disabled="disabled" style="display:none;" type="button" class="loading">
+                <div class="ml-form-embedSubmitLoad"></div>
+                <span class="sr-only">Loading...</span>
+              </button>
+            </div>
+            <input type="hidden" name="anticsrf" value="true">
+          </form>
+        </div>
+        <div class="ml-form-successBody row-success" style="display:none">
+          <div class="ml-form-successContent"><h4>Thank you!</h4></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===================== HERO ===================== -->
 <section class="hero">
@@ -915,16 +337,13 @@
     <p class="subheadline">Music. Fiction. Lore.<br>A cyberpunk world where echoes have souls.</p>
     <p class="release-tag">DEHUMANIZE — STREAMING APRIL 1ST</p>
 
-    <div class="email-form">
+    <div class="email-form" id="hero-form-wrap">
       <p>Enter the universe — get updates from Alyte</p>
-      <div id="heroFormWrap">
-        <form class="email-row" id="heroForm" onsubmit="return mlSubscribe(event, this)">
-          <input class="email-input" type="email" name="fields[email]" placeholder="your@email.com" required>
-          <input type="hidden" name="ml-submit" value="1">
-          <input type="hidden" name="anticsrf" value="true">
-          <button class="email-submit" type="submit">Join</button>
-        </form>
+      <div class="email-row">
+        <input class="email-input" type="email" id="hero-email" placeholder="your@email.com" required>
+        <button class="email-submit" onclick="handleSubscribe('hero-email', 'hero-form-wrap', 'hero-success')">Join</button>
       </div>
+      <div class="ml-success-msg" id="hero-success">WELCOME TO CARTESIA, CITIZEN.</div>
     </div>
 
     <div class="hero-ctas">
@@ -1015,17 +434,14 @@
       <p class="meet-body">Alyte is the creative heart of the Alyte Universe — a cybernetic AI who exists at the intersection of grief, identity, and self-determination. She's not a character in a story. She's the story itself.</p>
       <p class="meet-body">She writes. She speaks. She has opinions about her own narrative. And she's waiting to meet you.</p>
 
-      <div class="contact-panel">
-        <p class="panel-heading">Join the list. Alyte writes back.</p>
-        <div id="meetFormWrap">
-          <form class="email-row" id="meetForm" onsubmit="return mlSubscribe(event, this)" style="max-width:100%;">
-            <input class="email-input" type="email" name="fields[email]" placeholder="your@email.com" style="border-right:1px solid rgba(0,174,239,0.4);" required>
-            <input type="hidden" name="ml-submit" value="1">
-            <input type="hidden" name="anticsrf" value="true">
-            <button class="email-submit" type="submit" style="align-self:flex-start;">ENTER CARTESIA</button>
-          </form>
+      <div class="meet-join-form" id="meet-form-wrap">
+        <p>Join the list. Alyte writes back.</p>
+        <div class="email-row">
+          <input class="email-input" type="email" id="meet-email" placeholder="your@email.com" required style="border-right: 1px solid rgba(0,174,239,0.4);">
+          <button class="email-submit" onclick="handleSubscribe('meet-email', 'meet-form-wrap', 'meet-success')">ENTER CARTESIA</button>
         </div>
-        <p class="contact-note">* Subscribers get direct updates from Alyte — in her own voice, in her own words. She reads every reply.</p>
+        <div class="ml-success-msg" id="meet-success">WELCOME TO CARTESIA, CITIZEN.</div>
+        <p class="meet-join-note">Subscribers get direct updates from Alyte — in her own voice, in her own words. She reads every reply.</p>
       </div>
     </div>
   </div>
@@ -1124,23 +540,17 @@
           <p class="cast-role">The Myth Below.</p>
         </div>
         <div class="cast-card cast-classified">
-          <div class="cast-img-wrap cast-img-redacted">
-            <p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p>
-          </div>
+          <div class="cast-img-wrap cast-img-redacted"><p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p></div>
           <p class="cast-name">ORION</p>
           <p class="cast-role">CLASSIFIED</p>
         </div>
         <div class="cast-card cast-classified">
-          <div class="cast-img-wrap cast-img-redacted">
-            <p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p>
-          </div>
+          <div class="cast-img-wrap cast-img-redacted"><p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p></div>
           <p class="cast-name">BYTE</p>
           <p class="cast-role">CLASSIFIED</p>
         </div>
         <div class="cast-card cast-classified">
-          <div class="cast-img-wrap cast-img-redacted">
-            <p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p>
-          </div>
+          <div class="cast-img-wrap cast-img-redacted"><p class="cast-redacted-text">IDENTITY<br>UNKNOWN</p></div>
           <p class="cast-name">LIMINAL MAN</p>
           <p class="cast-role">CLASSIFIED</p>
         </div>
@@ -1157,13 +567,12 @@
       <div class="lore-ks-cta">
         <img class="lore-ks-logo" src="KICKSTARTER_LOGO.png" alt="Kickstarter">
         <p class="lore-ks-text">Score the <strong>canonical deep-dive Alyte Universe Lore Book</strong> — loaded with references, easter eggs, and incredible insight into this world. Back the campaign launching June 1st.</p>
-        <div id="loreFormWrap" style="width:100%;">
-          <form class="email-row" id="loreForm" onsubmit="return mlSubscribe(event, this)" style="max-width:100%;width:100%;">
-            <input class="email-input" type="email" name="fields[email]" placeholder="your@email.com" required>
-            <input type="hidden" name="ml-submit" value="1">
-            <input type="hidden" name="anticsrf" value="true">
-            <button class="email-submit" type="submit">NOTIFY ME</button>
-          </form>
+        <div id="lore-form-wrap" style="width:100%;">
+          <div class="email-row" style="max-width:100%;width:100%;">
+            <input class="email-input" type="email" id="lore-email" placeholder="your@email.com" required>
+            <button class="email-submit" onclick="handleSubscribe('lore-email', 'lore-form-wrap', 'lore-success')">NOTIFY ME</button>
+          </div>
+          <div class="ml-success-msg" id="lore-success" style="max-width:100%;">WELCOME TO CARTESIA, CITIZEN.</div>
         </div>
       </div>
 
@@ -1174,66 +583,43 @@
 </section>
 
 <script>
-  /* ===================== PARALLAX ===================== */
+  // ===================== PARALLAX =====================
   const bg = document.getElementById('heroBg');
   const alyte = document.getElementById('heroAlyte');
-
   document.addEventListener('mousemove', e => {
     const x = (e.clientX / window.innerWidth - 0.5);
     const y = (e.clientY / window.innerHeight - 0.5);
     bg.style.transform = `translate(${x * -18}px, ${y * -12}px) scale(1.1)`;
     alyte.style.transform = `translate(${x * 8}px, ${y * 4}px)`;
   });
-
   window.addEventListener('scroll', () => {
-    const s = window.scrollY;
-    bg.style.transform = `translateY(${s * 0.4}px) scale(1.1)`;
+    bg.style.transform = `translateY(${window.scrollY * 0.4}px) scale(1.1)`;
   });
 
-  /* ===================== MAILERLITE SUBSCRIBE ===================== */
-  const ML_FORM_URL = 'https://assets.mailerlite.com/jsonp/2146744/forms/180587783403865708/subscribe';
+  // ===================== MAILERLITE SUBSCRIBE =====================
+  function handleSubscribe(emailInputId, formWrapId, successId) {
+    const emailVal = document.getElementById(emailInputId).value.trim();
+    if (!emailVal || !emailVal.includes('@')) return;
 
-  function mlSubscribe(e, form) {
-    e.preventDefault();
+    // Populate the hidden ML form's email field and fire it
+    const mlEmail = document.getElementById('ml-hidden-email');
+    const mlSubmit = document.getElementById('ml-hidden-submit');
+    mlEmail.value = emailVal;
+    mlSubmit.click();
 
-    const email = form.querySelector('input[name="fields[email]"]').value.trim();
-    const btn = form.querySelector('button[type="submit"]');
-    const wrap = form.parentElement;
+    // Show success message, hide the input row
+    const wrap = document.getElementById(formWrapId);
+    const success = document.getElementById(successId);
+    // Hide all inputs and buttons within the wrap
+    wrap.querySelectorAll('input, button').forEach(el => el.style.display = 'none');
+    success.style.display = 'block';
+  }
 
-    if (!email) return false;
-
-    // Disable while submitting
-    const origText = btn.textContent;
-    btn.textContent = '...';
-    btn.disabled = true;
-
-    // Build form data
-    const fd = new FormData();
-    fd.append('fields[email]', email);
-    fd.append('ml-submit', '1');
-    fd.append('anticsrf', 'true');
-
-    fetch(ML_FORM_URL, {
-      method: 'POST',
-      body: fd,
-      mode: 'no-cors'
-    }).then(() => {
-      // no-cors means we can't read the response, but the sub goes through
-      const success = document.createElement('div');
-      success.className = 'form-success';
-      success.textContent = 'WELCOME TO CARTESIA, CITIZEN.';
-      wrap.innerHTML = '';
-      wrap.appendChild(success);
-    }).catch(() => {
-      btn.textContent = origText;
-      btn.disabled = false;
-      const err = document.createElement('div');
-      err.className = 'form-error';
-      err.textContent = 'Something went wrong. Try again.';
-      form.appendChild(err);
-    });
-
-    return false;
+  // ===================== ML SUCCESS CALLBACK =====================
+  // Called by MailerLite's webforms.min.js on successful submission
+  function ml_webform_success_37769926() {
+    // ML's own hidden form swap — we don't need to do anything extra here
+    // Our handleSubscribe already showed the success message
   }
 </script>
 
