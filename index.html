@@ -262,6 +262,137 @@
     .lore-ks-text strong { color: #f7931e; }
     .deep-lore-closer { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: #f7931e; margin-top: 2rem; padding-bottom: 4rem; text-shadow: 0 0 20px rgba(247,147,30,0.3); }
 
+    /* ===================== KICKSTARTER COUNTDOWN ===================== */
+    .ks-section {
+      background: #020205;
+      border-top: 1px solid rgba(247,147,30,0.2);
+      border-bottom: 1px solid rgba(247,147,30,0.2);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ks-section::before {
+      content: 'KICKSTARTER';
+      position: absolute;
+      font-family: 'Orbitron', monospace;
+      font-size: 15vw;
+      font-weight: 900;
+      color: rgba(247,147,30,0.03);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .ks-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .ks-eyebrow {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: #f7931e;
+    }
+
+    .ks-headline {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.1em;
+      line-height: 1.3;
+    }
+
+    .ks-headline span { color: #f7931e; }
+
+    .ks-countdown {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ks-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 80px;
+    }
+
+    .ks-number {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 0 30px rgba(247,147,30,0.4);
+    }
+
+    .ks-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: rgba(247,147,30,0.6);
+    }
+
+    .ks-sep {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: rgba(247,147,30,0.3);
+      line-height: 1;
+      padding-top: 0.1rem;
+    }
+
+    .ks-sub {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    .ks-notify-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* LIVE STATE */
+    .ks-live { display: none; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+    .ks-live-badge {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: #000;
+      background: #f7931e;
+      padding: 0.4rem 1.2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .ks-live-headline {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(247,147,30,0.5);
+    }
+
     /* ===================== FOOTER ===================== */
     .site-footer {
       background: #000;
@@ -655,6 +786,49 @@
 
 </section>
 
+<!-- ===================== KICKSTARTER COUNTDOWN ===================== -->
+<section class="ks-section">
+  <div class="ks-inner">
+    <p class="ks-eyebrow">KICKSTARTER</p>
+
+    <!-- PRE-LAUNCH STATE -->
+    <div id="ks-pre">
+      <h2 class="ks-headline">The <span>Alyte Universe</span><br>Kickstarter launches in</h2>
+      <div class="ks-countdown">
+        <div class="ks-unit">
+          <span class="ks-number" id="ks-days">--</span>
+          <span class="ks-label">DAYS</span>
+        </div>
+        <div class="ks-sep">:</div>
+        <div class="ks-unit">
+          <span class="ks-number" id="ks-hours">--</span>
+          <span class="ks-label">HOURS</span>
+        </div>
+        <div class="ks-sep">:</div>
+        <div class="ks-unit">
+          <span class="ks-number" id="ks-mins">--</span>
+          <span class="ks-label">MINUTES</span>
+        </div>
+        <div class="ks-sep">:</div>
+        <div class="ks-unit">
+          <span class="ks-number" id="ks-secs">--</span>
+          <span class="ks-label">SECONDS</span>
+        </div>
+      </div>
+      <p class="ks-sub">June 1, 2026 — Vinyl, cassette USBs, lore books, and more.</p>
+    </div>
+
+    <!-- LIVE STATE (shown after June 1) -->
+    <div class="ks-live" id="ks-live">
+      <div class="ks-live-badge">● LIVE NOW</div>
+      <h2 class="ks-live-headline">THE KICKSTARTER IS LIVE</h2>
+      <p class="ks-sub">Back the Alyte Universe. Vinyl, cassette USBs, lore books, and more.</p>
+      <a class="cta-btn cta-btn-id" href="https://kickstarter.com" target="_blank">BACK THE CAMPAIGN</a>
+    </div>
+
+  </div>
+</section>
+
 <!-- ===================== FOOTER ===================== -->
 <footer class="site-footer">
   <div class="footer-social">
@@ -688,6 +862,33 @@
 </footer>
 
 <script>
+  // ===================== KICKSTARTER COUNTDOWN =====================
+  const ksTarget = new Date('June 1, 2026 00:00:00').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = ksTarget - now;
+
+    if (diff <= 0) {
+      document.getElementById('ks-pre').style.display = 'none';
+      document.getElementById('ks-live').style.display = 'flex';
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('ks-days').textContent  = String(d).padStart(2, '0');
+    document.getElementById('ks-hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('ks-mins').textContent  = String(m).padStart(2, '0');
+    document.getElementById('ks-secs').textContent  = String(s).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
   // ===================== PARALLAX =====================
   const bg = document.getElementById('heroBg');
   const alyte = document.getElementById('heroAlyte');
